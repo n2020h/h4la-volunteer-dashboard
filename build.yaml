@@ -1,0 +1,11 @@
+on: push
+jobs:
+  first-job:
+    runs-on: macos-latest
+    steps:
+      -run: node --version
+      -run: npm --version
+      # - name: first-step
+      #   run: echo "Hello World"
+      # - name: second-step
+      #   run: echo "Hello World"
