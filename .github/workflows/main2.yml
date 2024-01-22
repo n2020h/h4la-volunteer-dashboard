@@ -20,7 +20,7 @@ jobs:
 
     # Step 2: Fetch the latest data
     - name: Fetch latest data
-      run: curl "https://docs.google.com/spreadsheets/d/1Okj4dVMIf780yfdFO0qxs-M1fmt72l3smYzF4aB74b8/edit?usp=sharing" -o volunteer_table.csv
+      run: curl "https://docs.google.com/spreadsheets/d/1Okj4dVMIf780yfdFO0qxs-M1fmt72l3smYzF4aB74b8/edit#gid=0" -o volunteer_table.csv
       # Uses curl to download data from the specified URL and saves it as usgs_most_recent.csv
 
     # Step 3: Commit and push if there are changes
