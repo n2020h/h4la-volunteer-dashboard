@@ -1,0 +1,43 @@
+name: Scrape and Commit Data
+
+# Controls when the workflow will run
+on:
+  push:  # Triggers the workflow on a push to any branch
+  workflow_dispatch:  # Allows the workflow to be manually triggered
+  schedule:
+    - cron: '*/5 * * * *'  # Schedules the workflow to run every 5 minutes
+
+jobs:
+  scrape_and_commit:
+    # Specifies the type of virtual environment the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+    # Step 2: Fetch the latest data
+    - name: Fetch latest data
+      run: curl "https://raw.githubusercontent.com/hackforla/data-science/160-survey-repo-labels/labels-survey/output.csv' #" -o h4la_projects.csv
+      # Uses curl to download data from the specified URL and saves it as 
+
+    # Step 3: Commit and push if there are changes
+    - name: Commit and push
+      run: |
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        # Sets Git configuration for the commit
+
+        git add h4la_projects.csv
+        # Stages the downloaded file for commit
+
+        timestamp=$(date -u)
+        # Saves the current UTC time in a variable
+
+        git commit -m "Latest data: ${timestamp}" || exit 0
+        # Commits the changes with a timestamp. '|| exit 0' ensures the workflow doesn't fail if there's nothing to commit
+
+        git push origin HEAD:${{ github.ref }}
+        # Pushes the commit to the same branch that triggered the workflow
