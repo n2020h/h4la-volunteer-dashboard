@@ -4,8 +4,7 @@ name: Scrape and Commit Data
 on:
   push:  # Triggers the workflow on a push to any branch
   workflow_dispatch:  # Allows the workflow to be manually triggered
-  schedule:
-    - cron: '*/5 * * * *'  # Schedules the workflow to run every 5 minutes
+  
 
 jobs:
   scrape_and_commit:
